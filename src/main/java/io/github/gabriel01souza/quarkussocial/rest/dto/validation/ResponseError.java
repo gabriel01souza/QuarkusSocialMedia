@@ -1,4 +1,4 @@
-package io.github.gabriel01souza.quarkussocial.rest.dto;
+package io.github.gabriel01souza.quarkussocial.rest.dto.validation;
 
 import jakarta.validation.ConstraintViolation;
 import jakarta.ws.rs.core.Response;

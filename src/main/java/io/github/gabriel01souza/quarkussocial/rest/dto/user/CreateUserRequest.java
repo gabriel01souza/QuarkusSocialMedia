@@ -1,4 +1,4 @@
-package io.github.gabriel01souza.quarkussocial.rest.dto;
+package io.github.gabriel01souza.quarkussocial.rest.dto.user;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;

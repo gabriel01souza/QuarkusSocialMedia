@@ -3,8 +3,8 @@ package io.github.gabriel01souza.quarkussocial.rest;
 
 import io.github.gabriel01souza.quarkussocial.domain.model.User;
 import io.github.gabriel01souza.quarkussocial.domain.repository.UserRepository;
-import io.github.gabriel01souza.quarkussocial.rest.dto.CreateUserRequest;
-import io.github.gabriel01souza.quarkussocial.rest.dto.ResponseError;
+import io.github.gabriel01souza.quarkussocial.rest.dto.user.CreateUserRequest;
+import io.github.gabriel01souza.quarkussocial.rest.dto.validation.ResponseError;
 import io.quarkus.hibernate.orm.panache.PanacheQuery;
 import jakarta.inject.Inject;
 import jakarta.transaction.Transactional;
