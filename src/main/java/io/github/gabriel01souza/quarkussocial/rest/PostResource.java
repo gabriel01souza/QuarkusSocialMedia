@@ -5,7 +5,9 @@ import io.github.gabriel01souza.quarkussocial.domain.model.User;
 import io.github.gabriel01souza.quarkussocial.domain.repository.PostRepository;
 import io.github.gabriel01souza.quarkussocial.domain.repository.UserRepository;
 import io.github.gabriel01souza.quarkussocial.rest.dto.post.CreatePostRequest;
+import io.github.gabriel01souza.quarkussocial.rest.dto.post.PostResponse;
 import io.github.gabriel01souza.quarkussocial.rest.dto.validation.ResponseError;
+import io.quarkus.panache.common.Sort;
 import jakarta.inject.Inject;
 import jakarta.transaction.Transactional;
 import jakarta.validation.ConstraintViolation;
@@ -61,7 +63,7 @@ public class PostResource {
         }
 
         postRepository.persist(
-                new Post(postRequest.getText(), LocalDateTime.now(), user)
+                new Post(postRequest.getText(), user)
         );
 
         return Response.status(Response.Status.CREATED.getStatusCode()).build();
@@ -70,14 +72,17 @@ public class PostResource {
     @GET
     @Transactional
     public Response listPosts(@PathParam("userId") Long userId) {
-//        User user = userRepository.findById(userId);
-//        if (Objects.isNull(user)) {
-//            return Response.status(Response.Status.NOT_FOUND).build();
-//        }
-//
-//        List<Post> posts = postRepository.findByUserId(user);
+        User user = userRepository.findById(userId);
+        if (Objects.isNull(user)) {
+            return Response.status(Response.Status.NOT_FOUND).build();
+        }
+
+        List<Post> posts = postRepository.find("user", Sort.by("date", Sort.Direction.Descending), user).list();
+
+        var response = posts.stream().map(PostResponse::fromEntity).toList();
+
         return Response.status(Response.Status.OK)
-                .entity(Collections.EMPTY_LIST)
+                .entity(response)
                 .build();
     }
 
